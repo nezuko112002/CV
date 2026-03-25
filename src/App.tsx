@@ -1,13 +1,37 @@
 import { useState, useEffect, useRef } from "react";
+import type { MouseEvent as AnchorMouseEvent } from "react";
 import { STYLE } from "./style";
 import { portfolioData } from "./portfolioData";
+import { publicUrl } from "./publicUrl";
 
 const data = portfolioData;
+
+const RESUME_FILE = "Juevesano Resume.pdf";
 
 export default function App() {
   const cursorDot = useRef<HTMLDivElement | null>(null);
   const cursorRing = useRef<HTMLDivElement | null>(null);
   const [hovering, setHovering] = useState(false);
+  const resumeHref = publicUrl(RESUME_FILE);
+
+  const handleResumeClick = async (e: AnchorMouseEvent<HTMLAnchorElement>) => {
+    try {
+      const res = await fetch(resumeHref);
+      if (!res.ok) return;
+      const blob = await res.blob();
+      e.preventDefault();
+      const blobUrl = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = blobUrl;
+      a.download = "Juevesano-Resume.pdf";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(blobUrl);
+    } catch {
+      /* fall through to normal link (new tab / open PDF) */
+    }
+  };
 
   useEffect(() => {
     const move = (e: MouseEvent) => {
@@ -51,7 +75,7 @@ export default function App() {
       {/* Nav */}
       <nav>
         <a href="#top" className="nav-logo">
-          <img src={data.photo} alt={data.name} className="nav-logo-photo" />
+          <img src={publicUrl(data.photo)} alt={data.name} className="nav-logo-photo" />
           <span>{data.name}</span>
         </a>
         <ul className="nav-links">
@@ -78,9 +102,12 @@ export default function App() {
           <a href="#projects" className="btn-primary">View Projects</a>
           <a href="#contact" className="btn-ghost">Get in touch</a>
           <a
-            href="/Juevesano%20Resume.pdf"
+            href={resumeHref}
             className="btn-ghost btn-resume"
-            download="Juevesano Resume.pdf"
+            download="Juevesano-Resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={handleResumeClick}
           >
             <span className="resume-signal" />
             Download my resume here
@@ -99,7 +126,7 @@ export default function App() {
           <div className="about-grid">
             <div className="reveal">
               <div className="about-photo-wrap">
-                <img src="/2x2.png" alt="Crisjay S. Juevesano" className="about-photo" />
+                <img src={publicUrl("2x2.png")} alt={data.name} className="about-photo" />
               </div>
               <h2 className="about-title">
                 Crisjay S.<br /><em>Juevesano</em>

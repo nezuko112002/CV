@@ -1,6 +1,6 @@
 export const portfolioData = {
   name: "Crisjay S. Juevesano",
-  photo: "/2x2.png",
+  photo: "2x2.png",
   role: "Frontend Developer",
   tagline: ["Crafting", "interfaces", "that feel", "inevitable."],
   bio: [
