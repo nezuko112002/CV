@@ -38,11 +38,11 @@ export const portfolioData = {
   projects: [
     {
       num: "01",
-      title: "Lakbay Travel",
-      desc: "Travel booking website for the Philippines built with HTML and CSS: flights, island-hopping tours, and hotel reservations with a single “basket” checkout flow.",
-      stack: ["HTML", "CSS", "UI"],
-      live: "https://nezuko112002.github.io/Lakbay-travel/",
-      code: "https://github.com/nezuko112002/Lakbay-travel",
+      title: "Onda Fit",
+      desc: "Court and studio booking platform — browse venues, pick time slots, and confirm bookings in one flow.",
+      stack: ["React", "TypeScript", "Tailwind CSS"],
+      live: "https://onda.fit/",
+      code: "#",
     },
     {
       num: "02",
@@ -62,11 +62,11 @@ export const portfolioData = {
     },
     {
       num: "04",
-      title: "Project Four",
-      desc: "Coming soon.",
-      stack: ["React", "Supabase", "CSS"],
-      live: "#",
-      code: "#",
+      title: "Lakbay Travel",
+      desc: "Travel booking website for the Philippines built with HTML and CSS: flights, island-hopping tours, and hotel reservations with a single “basket” checkout flow.",
+      stack: ["HTML", "CSS", "UI"],
+      live: "https://nezuko112002.github.io/Lakbay-travel/",
+      code: "https://github.com/nezuko112002/Lakbay-travel",
     },
   ],
   contact: [
