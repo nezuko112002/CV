@@ -6,7 +6,7 @@ import { publicUrl } from "./publicUrl";
 
 const data = portfolioData;
 
-const RESUME_FILE = "Juevesano Resume.pdf";
+const RESUME_FILE = "Crisjay-Juevesano-Full-stack-Developer-Resume_20260430_150533_0000.pdf";
 
 export default function App() {
   const cursorDot = useRef<HTMLDivElement | null>(null);
@@ -15,21 +15,26 @@ export default function App() {
   const resumeHref = publicUrl(RESUME_FILE);
 
   const handleResumeClick = async (e: AnchorMouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
     try {
       const res = await fetch(resumeHref);
-      if (!res.ok) return;
+      if (!res.ok) throw new Error("Failed to fetch resume");
       const blob = await res.blob();
-      e.preventDefault();
       const blobUrl = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = blobUrl;
-      a.download = "Juevesano-Resume.pdf";
+      a.download = RESUME_FILE;
       document.body.appendChild(a);
       a.click();
       a.remove();
       URL.revokeObjectURL(blobUrl);
     } catch {
-      /* fall through to normal link (new tab / open PDF) */
+      const a = document.createElement("a");
+      a.href = resumeHref;
+      a.download = RESUME_FILE;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
     }
   };
 
@@ -104,7 +109,7 @@ export default function App() {
           <a
             href={resumeHref}
             className="btn-ghost btn-resume"
-            download="Juevesano-Resume.pdf"
+            download={RESUME_FILE}
             target="_blank"
             rel="noopener noreferrer"
             onClick={handleResumeClick}
